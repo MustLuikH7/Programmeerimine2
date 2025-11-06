@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.Users
 {
-    public class InvoiceItemQueryHandler : IRequestHandler<InvoiceItemsQuery, OperationResult<IList<InvoiceItem>>>
+    public class InvoiceItemQueryHandler : IRequestHandler<InvoiceItemsQuery, OperationResult<PagedResult<InvoiceItem>>>
     {
         private readonly ApplicationDbContext _dbContext;
         public InvoiceItemQueryHandler(ApplicationDbContext dbContext)
@@ -20,13 +20,13 @@ namespace KooliProjekt.Application.Features.Users
             _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<IList<InvoiceItem>>> Handle(InvoiceItemsQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<PagedResult<InvoiceItem>>> Handle(InvoiceItemsQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<IList<InvoiceItem>>();
+            var result = new OperationResult<PagedResult<InvoiceItem>>();
             result.Value = await _dbContext
                 .InvoiceItems
                 .OrderBy(list => list.InvoiceId)
-                .ToListAsync();
+                .GetPagedAsync(request.Page, request.PageSize); 
 
             return result;
         }

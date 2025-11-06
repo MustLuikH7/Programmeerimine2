@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.Users
 {
-    public class DocumentQueryHandler : IRequestHandler<DocumentsQuery, OperationResult<IList<Document>>>
+    public class DocumentQueryHandler : IRequestHandler<DocumentsQuery, OperationResult<PagedResult<Document>>>
     {
         private readonly ApplicationDbContext _dbContext;
         public DocumentQueryHandler(ApplicationDbContext dbContext)
@@ -20,13 +20,13 @@ namespace KooliProjekt.Application.Features.Users
             _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<IList<Document>>> Handle(DocumentsQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<PagedResult<Document>>> Handle(DocumentsQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<IList<Document>>();
+            var result = new OperationResult<PagedResult<Document>>();
             result.Value = await _dbContext
                 .Documents
                 .OrderBy(list => list.DocumentId)
-                .ToListAsync();
+                .GetPagedAsync(request.Page, request.PageSize);
 
             return result;
         }
