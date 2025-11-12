@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KooliProjekt.Application\KooliProjekt.Application.csproj" />
+    <ProjectReference Include="../KooliProjekt.Application/KooliProjekt.Application.csproj" />
   </ItemGroup>
 
 </Project>

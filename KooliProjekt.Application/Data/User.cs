@@ -34,7 +34,6 @@ namespace KooliProjekt.Application.Data
         public virtual ICollection<Invoice> Invoices { get; set; }
         public User()
         {
-          
             Invoices = new HashSet<Invoice>();
         }
     }
