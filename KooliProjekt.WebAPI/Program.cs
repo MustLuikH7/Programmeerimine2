@@ -49,9 +49,19 @@ namespace KooliProjekt.WebAPI
             }
 
             app.UseAuthorization();
-
-
             app.MapControllers();
+
+            using (var scope = app.Services.CreateScope())
+            using (var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+            {
+                dbContext.Database.Migrate();
+
+
+#if (DEBUG)
+                var generator = new SeedData(dbContext);
+                generator.Generate();
+#endif
+            }
 
             app.Run();
         }

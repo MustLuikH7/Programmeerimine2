@@ -29,7 +29,7 @@ namespace KooliProjekt.WebAPI.Controllers
         [Route("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var query = new GetDoctorScheduleQuery {ScheduleId = id };
+            var query = new GetDoctorScheduleQuery { ScheduleId = id };
             var response = await _mediator.Send(query);
 
             return Result(response);
@@ -43,6 +43,13 @@ namespace KooliProjekt.WebAPI.Controllers
 
             return Result(response);
         }
-        
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(DeleteDoctorScheduleCommand command)
+        {
+            var response = await _mediator.Send(command);
+
+            return Result(response);
+        }
     }
 }

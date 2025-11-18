@@ -23,12 +23,12 @@ namespace KooliProjekt.WebAPI.Controllers
 
             return Result(result);
         }
-        
+
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get(int id)
         {
-            var query = new GetInvoiceItemQuery {ItemId = id };
+            var query = new GetInvoiceItemQuery { ItemId = id };
             var response = await _mediator.Send(query);
 
             return Result(response);
@@ -37,6 +37,14 @@ namespace KooliProjekt.WebAPI.Controllers
         [HttpPost]
         [Route("Save")]
         public async Task<IActionResult> Save(SaveInvoiceItemCommand command)
+        {
+            var response = await _mediator.Send(command);
+
+            return Result(response);
+        }
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(DeleteInvoiceItemCommand command)
         {
             var response = await _mediator.Send(command);
 

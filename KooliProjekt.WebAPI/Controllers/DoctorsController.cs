@@ -24,7 +24,7 @@ namespace KooliProjekt.WebAPI.Controllers
 
             return Result(result);
         }
-        
+
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get(int id)
@@ -43,6 +43,13 @@ namespace KooliProjekt.WebAPI.Controllers
 
             return Result(response);
         }
-        
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(DeleteDoctorCommand command)
+        {
+            var response = await _mediator.Send(command);
+
+            return Result(response);
+        }
     }
 }
