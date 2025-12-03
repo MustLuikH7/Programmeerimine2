@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Data
 {
-    public class DoctorSchedule
+    public class DoctorSchedule : Entity
     {
         [Key]
         public int ScheduleId { get; set; }
@@ -17,7 +17,7 @@ namespace KooliProjekt.Application.Data
         public int DoctorId { get; set; }
 
         [Required]
-        [MaxLength(10)] 
+        [MaxLength(10)]
         public string DayOfWeek { get; set; }
 
         [Required]

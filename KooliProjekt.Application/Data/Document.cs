@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Data
 {
-    public class Document
+    public class Document : Entity
     {
         [Key]
         public int DocumentId { get; set; }
 
-        
+
 
         [Required]
         public int AppointmentId { get; set; }
@@ -21,14 +21,14 @@ namespace KooliProjekt.Application.Data
         [Required]
         public int DoctorId { get; set; }
 
-        
+
 
         [Required]
-        [MaxLength(255)] 
+        [MaxLength(255)]
         public string FileName { get; set; }
 
         [Required]
-        [MaxLength(1024)] 
+        [MaxLength(1024)]
         public string FilePath { get; set; }
 
         [Required]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Data
 {
-    public class Appointment
+    public class Appointment : Entity
     {
         [Key]
         public int AppointmentId { get; set; }
@@ -25,7 +25,7 @@ namespace KooliProjekt.Application.Data
         public DateTime AppointmentTime { get; set; }
 
         [Required]
-        [MaxLength(50)] 
+        [MaxLength(50)]
         public string Status { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace KooliProjekt.Application.Data
 
         public virtual Invoice Invoice { get; set; }
 
-    
+
         public virtual ICollection<Document> Documents { get; set; }
 
         public Appointment()

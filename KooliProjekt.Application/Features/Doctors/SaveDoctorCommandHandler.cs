@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Data.Repositories;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 
@@ -8,35 +9,31 @@ namespace KooliProjekt.Application.Features.Doctors
 {
     public class SaveDoctorCommandHandler : IRequestHandler<SaveDoctorCommand, OperationResult>
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IDoctorRepository _doctorRepository;
 
-        public SaveDoctorCommandHandler(ApplicationDbContext dbContext)
+        public SaveDoctorCommandHandler(IDoctorRepository doctorRepository)
         {
-            _dbContext = dbContext;
+            _doctorRepository = doctorRepository;
         }
 
         public async Task<OperationResult> Handle(SaveDoctorCommand request, CancellationToken cancellationToken)
         {
             var result = new OperationResult();
 
-            var doctor = new Doctor();
-            if(request.DoctorId == 0)
+            var doctor = await _doctorRepository.GetByIdAsync(request.DoctorId);
+
+            if (doctor == null)
             {
-                await _dbContext.Doctors.AddAsync(doctor, cancellationToken);
-            }
-            else
-            {
-                doctor = await _dbContext.Doctors.FindAsync(new object[] { request.DoctorId }, cancellationToken);
+                doctor = new Doctor();
             }
 
-    
             doctor.FirstName = request.FirstName;
             doctor.LastName = request.LastName;
             doctor.Email = request.Email;
             doctor.PasswordHash = request.PasswordHash;
             doctor.Specialty = request.Specialty;
-            
-            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            await _doctorRepository.SaveAsync(doctor);
 
             return result;
         }

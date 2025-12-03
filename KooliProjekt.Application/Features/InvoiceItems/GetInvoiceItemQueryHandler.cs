@@ -2,36 +2,39 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Data.Repositories;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.InvoiceItems
 {
     public class GetInvoiceItemQueryHandler : IRequestHandler<GetInvoiceItemQuery, OperationResult<object>>
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IInvoiceItemRepository _invoiceItemRepository;
 
-        public GetInvoiceItemQueryHandler(ApplicationDbContext dbContext)
+        public GetInvoiceItemQueryHandler(IInvoiceItemRepository invoiceItemRepository)
         {
-            _dbContext = dbContext;
+            _invoiceItemRepository = invoiceItemRepository;
         }
 
         public async Task<OperationResult<object>> Handle(GetInvoiceItemQuery request, CancellationToken cancellationToken)
         {
             var result = new OperationResult<object>();
+            var invoiceItem = await _invoiceItemRepository.GetByIdAsync(request.ItemId);
 
-            result.Value = await _dbContext
-                .InvoiceItems
-                .Where(item => item.ItemId == request.ItemId)
-                .Select(item => new 
+            result.Value = new
+            {
+                ItemId = invoiceItem.ItemId,
+                InvoiceId = invoiceItem.InvoiceId,
+                Description = invoiceItem.Description,
+                Amount = invoiceItem.Amount,
+                Invoice = new
                 {
-                    ItemId = item.ItemId,
-                    InvoiceId = item.InvoiceId,
-                    Description = item.Description,
-                    Amount = item.Amount
-                })
-                .FirstOrDefaultAsync(cancellationToken);
+                    InvoiceId = invoiceItem.Invoice.InvoiceId,
+                    IssuedAt = invoiceItem.Invoice.IssuedAt,
+                    IsPaid = invoiceItem.Invoice.IsPaid
+                }
+            };
 
             return result;
         }
