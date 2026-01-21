@@ -398,3 +398,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /KooliProjekt.Application.UnitTests/BuildReports/Coverage
+/Programmeerimine2/KooliProjekt.WebAPI/appsettings.Development.json

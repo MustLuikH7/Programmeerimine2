@@ -20,7 +20,16 @@ namespace KooliProjekt.Application.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
+            base.OnModelCreating(modelBuilder);
+
+            // Ignore the inherited Id property and use entity-specific keys
+            modelBuilder.Entity<User>().Ignore(u => u.Id);
+            modelBuilder.Entity<Doctor>().Ignore(d => d.Id);
+            modelBuilder.Entity<DoctorSchedule>().Ignore(ds => ds.Id);
+            modelBuilder.Entity<Appointment>().Ignore(a => a.Id);
+            modelBuilder.Entity<Invoice>().Ignore(i => i.Id);
+            modelBuilder.Entity<InvoiceItem>().Ignore(ii => ii.Id);
+            modelBuilder.Entity<Document>().Ignore(d => d.Id);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)

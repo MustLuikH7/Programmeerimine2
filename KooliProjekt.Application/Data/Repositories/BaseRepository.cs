@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Data.Repositories
 {
@@ -24,15 +25,38 @@ namespace KooliProjekt.Application.Data.Repositories
             return await DbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task SaveAsync(T list)
+        public async Task SaveAsync(T entity)
         {
-            if (list.Id != 0)
+            var entry = DbContext.Entry(entity);
+
+            if (entry.State == EntityState.Detached)
             {
-                DbContext.Set<T>().Update(list);
+                // Check if entity exists in database by its primary key
+                var keyValues = entry.Metadata.FindPrimaryKey()
+                    .Properties
+                    .Select(p => entry.Property(p.Name).CurrentValue)
+                    .ToArray();
+
+                var existingEntity = await DbContext.Set<T>().FindAsync(keyValues);
+
+                if (existingEntity != null)
+                {
+                    // Entity exists, detach the existing and update with new values
+                    DbContext.Entry(existingEntity).State = EntityState.Detached;
+                    DbContext.Set<T>().Update(entity);
+                }
+                else
+                {
+                    await DbContext.Set<T>().AddAsync(entity);
+                }
+            }
+            else if (entry.State == EntityState.Modified)
+            {
+                DbContext.Set<T>().Update(entity);
             }
             else
             {
-                await DbContext.Set<T>().AddAsync(list);
+                await DbContext.Set<T>().AddAsync(entity);
             }
 
             await DbContext.SaveChangesAsync();
