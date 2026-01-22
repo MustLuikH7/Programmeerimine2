@@ -2,13 +2,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.InvoiceItems
 {
-    public class GetInvoiceItemQueryHandler : IRequestHandler<GetInvoiceItemQuery, OperationResult<object>>
+    public class GetInvoiceItemQueryHandler : IRequestHandler<GetInvoiceItemQuery, OperationResult<InvoiceItemDetailsDto>>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -17,19 +18,34 @@ namespace KooliProjekt.Application.Features.InvoiceItems
             _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<object>> Handle(GetInvoiceItemQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<InvoiceItemDetailsDto>> Handle(GetInvoiceItemQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult<InvoiceItemDetailsDto>();
+
+            if (request == null)
+            {
+                return result;
+            }
 
             result.Value = await _dbContext
                 .InvoiceItems
-                .Where(item => item.ItemId == request.ItemId)
-                .Select(item => new 
+                .Include(i => i.Invoice)
+                .Where(i => i.ItemId == request.ItemId)
+                .Select(i => new InvoiceItemDetailsDto
                 {
-                    ItemId = item.ItemId,
-                    InvoiceId = item.InvoiceId,
-                    Description = item.Description,
-                    Amount = item.Amount
+                    ItemId = i.ItemId,
+                    InvoiceId = i.InvoiceId,
+                    Description = i.Description,
+                    Amount = i.Amount,
+                    Invoice = new InvoiceDto
+                    {
+                        InvoiceId = i.Invoice.InvoiceId,
+                        AppointmentId = i.Invoice.AppointmentId,
+                        DoctorId = i.Invoice.DoctorId,
+                        UserId = i.Invoice.UserId,
+                        IssuedAt = i.Invoice.IssuedAt,
+                        IsPaid = i.Invoice.IsPaid
+                    }
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 

@@ -2,13 +2,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.Appointments
 {
-    public class GetAppointmentQueryHandler : IRequestHandler<GetAppointmentQuery, OperationResult<object>>
+    public class GetAppointmentQueryHandler : IRequestHandler<GetAppointmentQuery, OperationResult<AppointmentDetailsDto>>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -17,9 +18,14 @@ namespace KooliProjekt.Application.Features.Appointments
             _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<object>> Handle(GetAppointmentQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<AppointmentDetailsDto>> Handle(GetAppointmentQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult<AppointmentDetailsDto>();
+
+            if (request == null)
+            {
+                return result;
+            }
 
             result.Value = await _dbContext
                 .Appointments
@@ -28,39 +34,49 @@ namespace KooliProjekt.Application.Features.Appointments
                 .Include(a => a.Invoice)
                 .Include(a => a.Documents)
                 .Where(a => a.AppointmentId == request.AppointmentId)
-                .Select(a => new 
+                .Select(a => new AppointmentDetailsDto
                 {
-                    a.AppointmentId,
-                    a.DoctorId,
-                    a.UserId,
-                    a.AppointmentTime,
-                    a.Status,
-                    a.CreatedAt,
-                    a.CancelledAt,
-                    Doctor = new 
+                    AppointmentId = a.AppointmentId,
+                    DoctorId = a.DoctorId,
+                    UserId = a.UserId,
+                    AppointmentTime = a.AppointmentTime,
+                    Status = a.Status,
+                    CreatedAt = a.CreatedAt,
+                    CancelledAt = a.CancelledAt,
+                    Doctor = new DoctorDto
                     {
-                        a.Doctor.FirstName,
-                        a.Doctor.LastName,
-                        a.Doctor.Specialty
+                        DoctorId = a.Doctor.DoctorId,
+                        FirstName = a.Doctor.FirstName,
+                        LastName = a.Doctor.LastName,
+                        Email = a.Doctor.Email,
+                        Specialty = a.Doctor.Specialty
                     },
-                    User = new
+                    User = new UserDto
                     {
-                        a.User.FirstName,
-                        a.User.LastName,
-                        a.User.Email
+                        UserId = a.User.UserId,
+                        FirstName = a.User.FirstName,
+                        LastName = a.User.LastName,
+                        Email = a.User.Email,
+                        Phone = a.User.Phone
                     },
-                    Invoice = a.Invoice != null ? new 
+                    Invoice = a.Invoice != null ? new InvoiceDto
                     {
-                        a.Invoice.InvoiceId,
-                        a.Invoice.IssuedAt,
-                        a.Invoice.IsPaid
+                        InvoiceId = a.Invoice.InvoiceId,
+                        AppointmentId = a.Invoice.AppointmentId,
+                        DoctorId = a.Invoice.DoctorId,
+                        UserId = a.Invoice.UserId,
+                        IssuedAt = a.Invoice.IssuedAt,
+                        IsPaid = a.Invoice.IsPaid
                     } : null,
-                    Documents = a.Documents.Select(doc => new
+                    Documents = a.Documents.Select(doc => new DocumentDto
                     {
-                        doc.DocumentId,
-                        doc.FileName,
-                        doc.UploadedAt
-                    })
+                        DocumentId = doc.DocumentId,
+                        AppointmentId = doc.AppointmentId,
+                        DoctorId = doc.DoctorId,
+                        FileName = doc.FileName,
+                        FilePath = doc.FilePath,
+                        UploadedAt = doc.UploadedAt
+                    }).ToList()
                 })
                 .FirstOrDefaultAsync(cancellationToken);
 
