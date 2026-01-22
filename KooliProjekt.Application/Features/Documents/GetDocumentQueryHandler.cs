@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace KooliProjekt.Application.Features.Documents
             var result = new OperationResult<DocumentDetailsDto>();
 
             if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.DocumentId <= 0)
             {
                 return result;
             }

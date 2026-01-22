@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
@@ -12,7 +13,9 @@ namespace KooliProjekt.Application.Features.Users
 {
     public class UserQueryHandler : IRequestHandler<UsersQuery, OperationResult<PagedResult<UserDto>>>
     {
+        public const int MaxPageSize = 100;
         private readonly ApplicationDbContext _dbContext;
+
         public UserQueryHandler(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -20,6 +23,26 @@ namespace KooliProjekt.Application.Features.Users
 
         public async Task<OperationResult<PagedResult<UserDto>>> Handle(UsersQuery request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.Page <= 0)
+            {
+                throw new ArgumentException("Page must be greater than zero.", nameof(request));
+            }
+
+            if (request.PageSize <= 0)
+            {
+                throw new ArgumentException("PageSize must be greater than zero.", nameof(request));
+            }
+
+            if (request.PageSize > MaxPageSize)
+            {
+                throw new ArgumentException($"PageSize cannot be greater than {MaxPageSize}.", nameof(request));
+            }
+
             var result = new OperationResult<PagedResult<UserDto>>();
             result.Value = await _dbContext
                 .Users

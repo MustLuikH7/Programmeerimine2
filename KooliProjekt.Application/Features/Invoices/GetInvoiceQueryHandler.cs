@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace KooliProjekt.Application.Features.Invoices
             var result = new OperationResult<InvoiceDetailsDto>();
 
             if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.InvoiceId <= 0)
             {
                 return result;
             }

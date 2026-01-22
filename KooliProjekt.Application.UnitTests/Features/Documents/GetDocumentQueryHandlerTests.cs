@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
@@ -125,15 +126,31 @@ namespace KooliProjekt.Application.UnitTests.Features.Documents
         }
 
         [Fact]
-        public async Task Get_should_return_null_value_when_request_is_null()
+        public async Task Get_should_throw_ArgumentNullException_when_request_is_null()
         {
             // Arrange
             var handler = new GetDocumentQueryHandler(DbContext);
 
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, CancellationToken.None));
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-10)]
+        public async Task Get_should_return_null_when_request_id_is_zero_or_less(int id)
+        {
+            // Arrange
+            var dbContext = GetFaultyDbContext();
+            var query = new GetDocumentQuery { DocumentId = id };
+            var handler = new GetDocumentQueryHandler(dbContext);
+
             // Act
-            var result = await handler.Handle(null, CancellationToken.None);
+            var result = await handler.Handle(query, CancellationToken.None);
 
             // Assert
+            Assert.NotNull(result);
             Assert.False(result.HasErrors);
             Assert.Null(result.Value);
         }
