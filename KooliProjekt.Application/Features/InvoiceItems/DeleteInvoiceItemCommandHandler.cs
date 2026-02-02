@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
@@ -18,17 +16,39 @@ namespace KooliProjekt.Application.Features.InvoiceItems
 
         public DeleteInvoiceItemCommandHandler(ApplicationDbContext dbContext)
         {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException(nameof(dbContext));
+            }
+
             _dbContext = dbContext;
         }
 
         public async Task<OperationResult> Handle(DeleteInvoiceItemCommand request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             var result = new OperationResult();
 
-            await _dbContext
-                .InvoiceItems
+            if (request.ItemId <= 0)
+            {
+                return result;
+            }
+
+            var invoiceItem = await _dbContext.InvoiceItems
                 .Where(i => i.ItemId == request.ItemId)
-                .ExecuteDeleteAsync(cancellationToken);
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (invoiceItem == null)
+            {
+                return result;
+            }
+
+            _dbContext.InvoiceItems.Remove(invoiceItem);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return result;
         }
