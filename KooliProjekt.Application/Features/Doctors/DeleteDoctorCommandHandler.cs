@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
@@ -18,17 +16,39 @@ namespace KooliProjekt.Application.Features.Doctors
 
         public DeleteDoctorCommandHandler(ApplicationDbContext dbContext)
         {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException(nameof(dbContext));
+            }
+
             _dbContext = dbContext;
         }
 
         public async Task<OperationResult> Handle(DeleteDoctorCommand request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             var result = new OperationResult();
 
-            await _dbContext
-                .Doctors
+            if (request.DoctorId <= 0)
+            {
+                return result;
+            }
+
+            var doctor = await _dbContext.Doctors
                 .Where(d => d.DoctorId == request.DoctorId)
-                .ExecuteDeleteAsync(cancellationToken);
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (doctor == null)
+            {
+                return result;
+            }
+
+            _dbContext.Doctors.Remove(doctor);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return result;
         }

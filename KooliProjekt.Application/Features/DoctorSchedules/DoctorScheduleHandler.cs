@@ -1,31 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Paging;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace KooliProjekt.Application.Features.Users
+namespace KooliProjekt.Application.Features.DoctorSchedules
 {
-    public class DoctorScheduleHandler : IRequestHandler<DoctorSchedulesQuery, OperationResult<PagedResult<DoctorSchedule>>>
+    public class DoctorScheduleHandler : IRequestHandler<DoctorSchedulesQuery, OperationResult<PagedResult<DoctorScheduleDto>>>
     {
+        public const int MaxPageSize = 100;
         private readonly ApplicationDbContext _dbContext;
+
         public DoctorScheduleHandler(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<PagedResult<DoctorSchedule>>> Handle(DoctorSchedulesQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<PagedResult<DoctorScheduleDto>>> Handle(DoctorSchedulesQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<PagedResult<DoctorSchedule>>();
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.Page <= 0)
+            {
+                throw new ArgumentException("Page must be greater than zero.", nameof(request));
+            }
+
+            if (request.PageSize <= 0)
+            {
+                throw new ArgumentException("PageSize must be greater than zero.", nameof(request));
+            }
+
+            if (request.PageSize > MaxPageSize)
+            {
+                throw new ArgumentException($"PageSize cannot be greater than {MaxPageSize}.", nameof(request));
+            }
+
+            var result = new OperationResult<PagedResult<DoctorScheduleDto>>();
             result.Value = await _dbContext
                 .DoctorSchedules
-                .OrderBy(list => list.DoctorId)
+                .OrderBy(s => s.DoctorId)
+                .Select(s => new DoctorScheduleDto
+                {
+                    ScheduleId = s.ScheduleId,
+                    DoctorId = s.DoctorId,
+                    DayOfWeek = s.DayOfWeek,
+                    StartTime = s.StartTime,
+                    EndTime = s.EndTime,
+                    ValidFrom = s.ValidFrom,
+                    ValidTo = s.ValidTo
+                })
                 .GetPagedAsync(request.Page, request.PageSize);
             return result;
         }

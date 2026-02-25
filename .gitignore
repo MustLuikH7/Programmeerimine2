@@ -399,3 +399,6 @@ FodyWeavers.xsd
 *.sln.iml
 /KooliProjekt.UnitTests/BuildReports/Coverage
 appsettings.Development.json
+# IntelliJ IDEA
+.idea/
+.vscode/
