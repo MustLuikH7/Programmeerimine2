@@ -397,4 +397,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/KooliProjekt.Application.UnitTests/BuildReports/Coverage
+/KooliProjekt.UnitTests/BuildReports/Coverage
+appsettings.Development.json
