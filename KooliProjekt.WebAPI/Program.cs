@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
-using KooliProjekt.Application.Data.Repositories;
-
 using MediatR;
 
 namespace KooliProjekt.WebAPI
@@ -41,14 +39,6 @@ namespace KooliProjekt.WebAPI
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
                 config.AddOpenBehavior(typeof(TransactionalBehavior<,>));
             });
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-            builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-            builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
-            builder.Services.AddScoped<IDoctorScheduleRepository, DoctorScheduleRepository>();
-            builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-            builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
-
 
             var app = builder.Build();
 

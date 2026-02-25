@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Data
 {
-    public class InvoiceItem : Entity
+    public class InvoiceItem
     {
         [Key]
         public int ItemId { get; set; }

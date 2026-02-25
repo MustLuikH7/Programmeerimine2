@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
-using KooliProjekt.Application.Data.Repositories;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 
@@ -9,23 +8,28 @@ namespace KooliProjekt.Application.Features.Users
 {
     public class SaveUserCommandHandler : IRequestHandler<SaveUserCommand, OperationResult>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly ApplicationDbContext _dbContext;
 
-        public SaveUserCommandHandler(IUserRepository userRepository)
+        public SaveUserCommandHandler(ApplicationDbContext dbContext)
         {
-            _userRepository = userRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<OperationResult> Handle(SaveUserCommand request, CancellationToken cancellationToken)
         {
             var result = new OperationResult();
 
-            var user = await _userRepository.GetByIdAsync(request.UserId);
-
-            if (user == null)
+            var user = new User();
+            if(request.UserId == 0)
             {
-                user = new User();
+                await _dbContext.Users.AddAsync(user, cancellationToken);
             }
+            else
+            {
+                user = await _dbContext.Users.FindAsync(new object[] { request.UserId }, cancellationToken);
+            }
+
+    
 
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
@@ -33,7 +37,7 @@ namespace KooliProjekt.Application.Features.Users
             user.PasswordHash = request.PasswordHash;
             user.Phone = request.Phone;
             
-            await _userRepository.SaveAsync(user);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return result;
         }

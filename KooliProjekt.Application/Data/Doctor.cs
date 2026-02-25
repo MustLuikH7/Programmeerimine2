@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema; 
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Data
 {
-
-    public class Doctor : Entity
+    
+    public class Doctor
     {
         [Key]
         public int DoctorId { get; set; }
@@ -32,7 +32,7 @@ namespace KooliProjekt.Application.Data
         public string PasswordHash { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(100)] 
         public string Specialty { get; set; }
 
         public virtual ICollection<DoctorSchedule> Schedules { get; set; }

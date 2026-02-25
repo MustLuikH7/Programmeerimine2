@@ -2,39 +2,36 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
-using KooliProjekt.Application.Data.Repositories;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.InvoiceItems
 {
     public class GetInvoiceItemQueryHandler : IRequestHandler<GetInvoiceItemQuery, OperationResult<object>>
     {
-        private readonly IInvoiceItemRepository _invoiceItemRepository;
+        private readonly ApplicationDbContext _dbContext;
 
-        public GetInvoiceItemQueryHandler(IInvoiceItemRepository invoiceItemRepository)
+        public GetInvoiceItemQueryHandler(ApplicationDbContext dbContext)
         {
-            _invoiceItemRepository = invoiceItemRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<OperationResult<object>> Handle(GetInvoiceItemQuery request, CancellationToken cancellationToken)
         {
             var result = new OperationResult<object>();
-            var invoiceItem = await _invoiceItemRepository.GetByIdAsync(request.ItemId);
 
-            result.Value = new
-            {
-                ItemId = invoiceItem.ItemId,
-                InvoiceId = invoiceItem.InvoiceId,
-                Description = invoiceItem.Description,
-                Amount = invoiceItem.Amount,
-                Invoice = new
+            result.Value = await _dbContext
+                .InvoiceItems
+                .Where(item => item.ItemId == request.ItemId)
+                .Select(item => new 
                 {
-                    InvoiceId = invoiceItem.Invoice.InvoiceId,
-                    IssuedAt = invoiceItem.Invoice.IssuedAt,
-                    IsPaid = invoiceItem.Invoice.IsPaid
-                }
-            };
+                    ItemId = item.ItemId,
+                    InvoiceId = item.InvoiceId,
+                    Description = item.Description,
+                    Amount = item.Amount
+                })
+                .FirstOrDefaultAsync(cancellationToken);
 
             return result;
         }

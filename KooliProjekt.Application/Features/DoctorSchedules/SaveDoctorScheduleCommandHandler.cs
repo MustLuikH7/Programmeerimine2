@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
-using KooliProjekt.Application.Data.Repositories;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 
@@ -9,22 +8,25 @@ namespace KooliProjekt.Application.Features.DoctorSchedules
 {
     public class SaveDoctorScheduleCommandHandler : IRequestHandler<SaveDoctorScheduleCommand, OperationResult>
     {
-        private readonly IDoctorScheduleRepository _doctorScheduleRepository;
+        private readonly ApplicationDbContext _dbContext;
 
-        public SaveDoctorScheduleCommandHandler(IDoctorScheduleRepository doctorScheduleRepository)
+        public SaveDoctorScheduleCommandHandler(ApplicationDbContext dbContext)
         {
-            _doctorScheduleRepository = doctorScheduleRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<OperationResult> Handle(SaveDoctorScheduleCommand request, CancellationToken cancellationToken)
         {
             var result = new OperationResult();
 
-            var doctorSchedule = await _doctorScheduleRepository.GetByIdAsync(request.ScheduleId);
-
-            if (doctorSchedule == null)
+            var doctorSchedule = new DoctorSchedule();
+            if(request.ScheduleId == 0)
             {
-                doctorSchedule = new DoctorSchedule();
+                await _dbContext.DoctorSchedules.AddAsync(doctorSchedule, cancellationToken);
+            }
+            else
+            {
+                doctorSchedule = await _dbContext.DoctorSchedules.FindAsync(new object[] { request.ScheduleId }, cancellationToken);
             }
 
             doctorSchedule.DoctorId = request.DoctorId;
@@ -33,8 +35,8 @@ namespace KooliProjekt.Application.Features.DoctorSchedules
             doctorSchedule.EndTime = request.EndTime;
             doctorSchedule.ValidFrom = request.ValidFrom;
             doctorSchedule.ValidTo = request.ValidTo;
-
-            await _doctorScheduleRepository.SaveAsync(doctorSchedule);
+            
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return result;
         }

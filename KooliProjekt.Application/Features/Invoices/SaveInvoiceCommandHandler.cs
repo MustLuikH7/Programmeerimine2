@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
-using KooliProjekt.Application.Data.Repositories;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 
@@ -9,31 +8,33 @@ namespace KooliProjekt.Application.Features.Invoices
 {
     public class SaveInvoiceCommandHandler : IRequestHandler<SaveInvoiceCommand, OperationResult>
     {
-        private readonly IInvoiceRepository _invoiceRepository;
+        private readonly ApplicationDbContext _dbContext;
 
-        public SaveInvoiceCommandHandler(IInvoiceRepository invoiceRepository)
+        public SaveInvoiceCommandHandler(ApplicationDbContext dbContext)
         {
-            _invoiceRepository = invoiceRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<OperationResult> Handle(SaveInvoiceCommand request, CancellationToken cancellationToken)
         {
             var result = new OperationResult();
 
-            var invoice = await _invoiceRepository.GetByIdAsync(request.InvoiceId);
-
-            if (invoice == null)
+            var invoice = new Invoice();
+            if(request.InvoiceId == 0)
             {
-                invoice = new Invoice();
+                await _dbContext.Invoices.AddAsync(invoice, cancellationToken);
             }
-
+            else
+            {
+                invoice = await _dbContext.Invoices.FindAsync(new object[] { request.InvoiceId }, cancellationToken);
+            }
             invoice.AppointmentId = request.AppointmentId;
             invoice.DoctorId = request.DoctorId;
             invoice.UserId = request.UserId;
             invoice.IssuedAt = request.IssuedAt;
             invoice.IsPaid = request.IsPaid;
-
-            await _invoiceRepository.SaveAsync(invoice);
+            
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return result;
         }
