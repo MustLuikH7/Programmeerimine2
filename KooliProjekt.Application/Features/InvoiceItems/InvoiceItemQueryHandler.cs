@@ -44,8 +44,20 @@ namespace KooliProjekt.Application.Features.InvoiceItems
             }
 
             var result = new OperationResult<PagedResult<InvoiceItemDto>>();
-            result.Value = await _dbContext
-                .InvoiceItems
+
+            var query = _dbContext.InvoiceItems.AsQueryable();
+
+            if (!string.IsNullOrEmpty(request.Description))
+            {
+                query = query.Where(i => i.Description.Contains(request.Description));
+            }
+
+            if (request.InvoiceId.HasValue)
+            {
+                query = query.Where(i => i.InvoiceId == request.InvoiceId.Value);
+            }
+
+            result.Value = await query
                 .OrderBy(i => i.InvoiceId)
                 .Select(i => new InvoiceItemDto
                 {

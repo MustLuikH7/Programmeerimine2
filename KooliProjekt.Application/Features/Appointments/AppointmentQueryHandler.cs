@@ -45,9 +45,26 @@ namespace KooliProjekt.Application.Features.Appointments
             }
 
             var result = new OperationResult<PagedResult<AppointmentDto>>();
-            result.Value = await _dbContext
-                .Appointments
-                .OrderBy(a => a.AppointmentId)
+
+            var query = _dbContext.Appointments.AsQueryable();
+
+            if (!string.IsNullOrEmpty(request.Status))
+            {
+                query = query.Where(a => a.Status.Contains(request.Status));
+            }
+
+            if (request.DateFrom.HasValue)
+            {
+                query = query.Where(a => a.AppointmentTime >= request.DateFrom.Value);
+            }
+
+            if (request.DateTo.HasValue)
+            {
+                query = query.Where(a => a.AppointmentTime <= request.DateTo.Value);
+            }
+
+            result.Value = await query
+                .OrderBy(a => a.AppointmentTime)
                 .Select(a => new AppointmentDto
                 {
                     AppointmentId = a.AppointmentId,

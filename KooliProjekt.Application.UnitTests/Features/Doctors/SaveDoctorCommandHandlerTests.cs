@@ -158,11 +158,11 @@ namespace KooliProjekt.Application.UnitTests.Features.Doctors
         {
             // Arrange
             var validator = new SaveDoctorCommandValidator(DbContext);
-            var command = new SaveDoctorCommand 
-            { 
-                DoctorId = 0, 
-                FirstName = firstName, 
-                LastName = "Smith", 
+            var command = new SaveDoctorCommand
+            {
+                DoctorId = 0,
+                FirstName = firstName,
+                LastName = "Smith",
                 Email = "dr.smith@example.com",
                 PasswordHash = "hashedpassword",
                 Specialty = "Cardiology"
@@ -184,11 +184,11 @@ namespace KooliProjekt.Application.UnitTests.Features.Doctors
         {
             // Arrange
             var validator = new SaveDoctorCommandValidator(DbContext);
-            var command = new SaveDoctorCommand 
-            { 
-                DoctorId = 0, 
-                FirstName = "John", 
-                LastName = lastName, 
+            var command = new SaveDoctorCommand
+            {
+                DoctorId = 0,
+                FirstName = "John",
+                LastName = lastName,
                 Email = "dr.smith@example.com",
                 PasswordHash = "hashedpassword",
                 Specialty = "Cardiology"
@@ -210,11 +210,11 @@ namespace KooliProjekt.Application.UnitTests.Features.Doctors
         {
             // Arrange
             var validator = new SaveDoctorCommandValidator(DbContext);
-            var command = new SaveDoctorCommand 
-            { 
-                DoctorId = 0, 
-                FirstName = "John", 
-                LastName = "Smith", 
+            var command = new SaveDoctorCommand
+            {
+                DoctorId = 0,
+                FirstName = "John",
+                LastName = "Smith",
                 Email = email,
                 PasswordHash = "hashedpassword",
                 Specialty = "Cardiology"
@@ -235,11 +235,11 @@ namespace KooliProjekt.Application.UnitTests.Features.Doctors
         {
             // Arrange
             var validator = new SaveDoctorCommandValidator(DbContext);
-            var command = new SaveDoctorCommand 
-            { 
-                DoctorId = 0, 
-                FirstName = "John", 
-                LastName = "Smith", 
+            var command = new SaveDoctorCommand
+            {
+                DoctorId = 0,
+                FirstName = "John",
+                LastName = "Smith",
                 Email = "dr.smith@example.com",
                 PasswordHash = passwordHash,
                 Specialty = "Cardiology"
@@ -260,11 +260,11 @@ namespace KooliProjekt.Application.UnitTests.Features.Doctors
         {
             // Arrange
             var validator = new SaveDoctorCommandValidator(DbContext);
-            var command = new SaveDoctorCommand 
-            { 
-                DoctorId = 0, 
-                FirstName = "John", 
-                LastName = "Smith", 
+            var command = new SaveDoctorCommand
+            {
+                DoctorId = 0,
+                FirstName = "John",
+                LastName = "Smith",
                 Email = "dr.smith@example.com",
                 PasswordHash = "hashedpassword",
                 Specialty = specialty
@@ -283,11 +283,11 @@ namespace KooliProjekt.Application.UnitTests.Features.Doctors
         {
             // Arrange
             var validator = new SaveDoctorCommandValidator(DbContext);
-            var command = new SaveDoctorCommand 
-            { 
-                DoctorId = 0, 
-                FirstName = "John", 
-                LastName = "Smith", 
+            var command = new SaveDoctorCommand
+            {
+                DoctorId = 0,
+                FirstName = "John",
+                LastName = "Smith",
                 Email = "dr.smith@example.com",
                 PasswordHash = "hashedpassword",
                 Specialty = "Cardiology"

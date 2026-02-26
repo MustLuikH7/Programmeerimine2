@@ -220,12 +220,12 @@ namespace KooliProjekt.Application.UnitTests.Features.Appointments
         {
             // Arrange
             var validator = new SaveAppointmentCommandValidator(DbContext);
-            var command = new SaveAppointmentCommand 
-            { 
-                AppointmentId = 0, 
-                DoctorId = doctorId, 
-                UserId = 1, 
-                AppointmentTime = DateTime.Now.AddDays(1), 
+            var command = new SaveAppointmentCommand
+            {
+                AppointmentId = 0,
+                DoctorId = doctorId,
+                UserId = 1,
+                AppointmentTime = DateTime.Now.AddDays(1),
                 Status = "Scheduled",
                 CreatedAt = DateTime.Now
             };
@@ -245,12 +245,12 @@ namespace KooliProjekt.Application.UnitTests.Features.Appointments
         {
             // Arrange
             var validator = new SaveAppointmentCommandValidator(DbContext);
-            var command = new SaveAppointmentCommand 
-            { 
-                AppointmentId = 0, 
-                DoctorId = 1, 
-                UserId = userId, 
-                AppointmentTime = DateTime.Now.AddDays(1), 
+            var command = new SaveAppointmentCommand
+            {
+                AppointmentId = 0,
+                DoctorId = 1,
+                UserId = userId,
+                AppointmentTime = DateTime.Now.AddDays(1),
                 Status = "Scheduled",
                 CreatedAt = DateTime.Now
             };
@@ -271,12 +271,12 @@ namespace KooliProjekt.Application.UnitTests.Features.Appointments
         {
             // Arrange
             var validator = new SaveAppointmentCommandValidator(DbContext);
-            var command = new SaveAppointmentCommand 
-            { 
-                AppointmentId = 0, 
-                DoctorId = 1, 
-                UserId = 1, 
-                AppointmentTime = DateTime.Now.AddDays(1), 
+            var command = new SaveAppointmentCommand
+            {
+                AppointmentId = 0,
+                DoctorId = 1,
+                UserId = 1,
+                AppointmentTime = DateTime.Now.AddDays(1),
                 Status = status,
                 CreatedAt = DateTime.Now
             };
@@ -294,12 +294,12 @@ namespace KooliProjekt.Application.UnitTests.Features.Appointments
         {
             // Arrange
             var validator = new SaveAppointmentCommandValidator(DbContext);
-            var command = new SaveAppointmentCommand 
-            { 
-                AppointmentId = 0, 
-                DoctorId = 1, 
-                UserId = 1, 
-                AppointmentTime = DateTime.Now.AddDays(1), 
+            var command = new SaveAppointmentCommand
+            {
+                AppointmentId = 0,
+                DoctorId = 1,
+                UserId = 1,
+                AppointmentTime = DateTime.Now.AddDays(1),
                 Status = "Scheduled",
                 CreatedAt = DateTime.Now
             };

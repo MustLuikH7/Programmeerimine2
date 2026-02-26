@@ -44,8 +44,20 @@ namespace KooliProjekt.Application.Features.Users
             }
 
             var result = new OperationResult<PagedResult<UserDto>>();
-            result.Value = await _dbContext
-                .Users
+
+            var query = _dbContext.Users.AsQueryable();
+
+            if (!string.IsNullOrEmpty(request.Name))
+            {
+                query = query.Where(u => u.FirstName.Contains(request.Name) || u.LastName.Contains(request.Name));
+            }
+
+            if (!string.IsNullOrEmpty(request.Email))
+            {
+                query = query.Where(u => u.Email.Contains(request.Email));
+            }
+
+            result.Value = await query
                 .OrderBy(u => u.FirstName)
                 .Select(u => new UserDto
                 {

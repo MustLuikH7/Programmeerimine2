@@ -9,5 +9,8 @@ namespace KooliProjekt.Application.Features.Invoices
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
+
+        public bool? IsPaid { get; set; }
+        public int? UserId { get; set; }
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <Exclude>
+            [KooliProjekt.Application]KooliProjekt.Application.Behaviors.*,
+            [KooliProjekt.Application]KooliProjekt.Application.Data.*,
+            [KooliProjekt.Application]KooliProjekt.Application.Dto.*,
+            [KooliProjekt.Application]KooliProjekt.Application.Infrastructure.*,
+            [KooliProjekt.Application]KooliProjekt.Application.Migrations.*,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Appointments.SaveAppointmentCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Appointments.DeleteAppointmentCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Appointments.GetAppointmentQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Appointments.AppointmentsQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Doctors.SaveDoctorCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Doctors.DeleteDoctorCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Doctors.GetDoctorsQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Doctors.DoctorsQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.DoctorSchedules.SaveDoctorScheduleCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.DoctorSchedules.DeleteDoctorScheduleCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.DoctorSchedules.GetDoctorScheduleQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.DoctorSchedules.DoctorSchedulesQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Documents.SaveDocumentCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Documents.DeleteDocumentCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Documents.GetDocumentQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Documents.DocumentsQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Invoices.SaveInvoiceCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Invoices.DeleteInvoiceCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Invoices.GetInvoiceQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Invoices.InvoicesQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.InvoiceItems.SaveInvoiceItemCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.InvoiceItems.DeleteInvoiceItemCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.InvoiceItems.GetInvoiceItemQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.InvoiceItems.InvoiceItemsQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Users.SaveUserCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Users.DeleteUserCommand,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Users.GetUserQuery,
+            [KooliProjekt.Application]KooliProjekt.Application.Features.Users.UsersQuery
+          </Exclude>
+          <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

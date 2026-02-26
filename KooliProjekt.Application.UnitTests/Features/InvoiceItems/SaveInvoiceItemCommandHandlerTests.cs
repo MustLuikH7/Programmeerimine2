@@ -277,10 +277,10 @@ namespace KooliProjekt.Application.UnitTests.Features.InvoiceItems
         {
             // Arrange
             var validator = new SaveInvoiceItemCommandValidator(DbContext);
-            var command = new SaveInvoiceItemCommand 
-            { 
-                ItemId = 0, 
-                InvoiceId = invoiceId, 
+            var command = new SaveInvoiceItemCommand
+            {
+                ItemId = 0,
+                InvoiceId = invoiceId,
                 Description = "Test Item",
                 Amount = 100
             };
@@ -300,10 +300,10 @@ namespace KooliProjekt.Application.UnitTests.Features.InvoiceItems
         {
             // Arrange
             var validator = new SaveInvoiceItemCommandValidator(DbContext);
-            var command = new SaveInvoiceItemCommand 
-            { 
-                ItemId = 0, 
-                InvoiceId = 1, 
+            var command = new SaveInvoiceItemCommand
+            {
+                ItemId = 0,
+                InvoiceId = 1,
                 Description = description,
                 Amount = 100
             };
@@ -323,10 +323,10 @@ namespace KooliProjekt.Application.UnitTests.Features.InvoiceItems
         {
             // Arrange
             var validator = new SaveInvoiceItemCommandValidator(DbContext);
-            var command = new SaveInvoiceItemCommand 
-            { 
-                ItemId = 0, 
-                InvoiceId = 1, 
+            var command = new SaveInvoiceItemCommand
+            {
+                ItemId = 0,
+                InvoiceId = 1,
                 Description = "Test Item",
                 Amount = amount
             };
@@ -344,10 +344,10 @@ namespace KooliProjekt.Application.UnitTests.Features.InvoiceItems
         {
             // Arrange
             var validator = new SaveInvoiceItemCommandValidator(DbContext);
-            var command = new SaveInvoiceItemCommand 
-            { 
-                ItemId = 0, 
-                InvoiceId = 1, 
+            var command = new SaveInvoiceItemCommand
+            {
+                ItemId = 0,
+                InvoiceId = 1,
                 Description = "Test Item",
                 Amount = 100
             };

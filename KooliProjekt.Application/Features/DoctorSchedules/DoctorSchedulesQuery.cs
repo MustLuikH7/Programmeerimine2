@@ -9,5 +9,8 @@ namespace KooliProjekt.Application.Features.DoctorSchedules
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
+
+        public int? DoctorId { get; set; }
+        public string DayOfWeek { get; set; }
     }
 }

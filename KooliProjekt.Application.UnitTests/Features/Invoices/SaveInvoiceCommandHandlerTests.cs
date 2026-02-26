@@ -253,10 +253,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Invoices
         {
             // Arrange
             var validator = new SaveInvoiceCommandValidator(DbContext);
-            var command = new SaveInvoiceCommand 
-            { 
-                InvoiceId = 0, 
-                AppointmentId = appointmentId, 
+            var command = new SaveInvoiceCommand
+            {
+                InvoiceId = 0,
+                AppointmentId = appointmentId,
                 DoctorId = 1,
                 UserId = 1,
                 IssuedAt = DateTime.Now
@@ -277,10 +277,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Invoices
         {
             // Arrange
             var validator = new SaveInvoiceCommandValidator(DbContext);
-            var command = new SaveInvoiceCommand 
-            { 
-                InvoiceId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveInvoiceCommand
+            {
+                InvoiceId = 0,
+                AppointmentId = 1,
                 DoctorId = doctorId,
                 UserId = 1,
                 IssuedAt = DateTime.Now
@@ -301,10 +301,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Invoices
         {
             // Arrange
             var validator = new SaveInvoiceCommandValidator(DbContext);
-            var command = new SaveInvoiceCommand 
-            { 
-                InvoiceId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveInvoiceCommand
+            {
+                InvoiceId = 0,
+                AppointmentId = 1,
                 DoctorId = 1,
                 UserId = userId,
                 IssuedAt = DateTime.Now
@@ -323,10 +323,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Invoices
         {
             // Arrange
             var validator = new SaveInvoiceCommandValidator(DbContext);
-            var command = new SaveInvoiceCommand 
-            { 
-                InvoiceId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveInvoiceCommand
+            {
+                InvoiceId = 0,
+                AppointmentId = 1,
                 DoctorId = 1,
                 UserId = 1,
                 IssuedAt = DateTime.Now

@@ -190,10 +190,10 @@ namespace KooliProjekt.Application.UnitTests.Features.DoctorSchedules
         {
             // Arrange
             var validator = new SaveDoctorScheduleCommandValidator(DbContext);
-            var command = new SaveDoctorScheduleCommand 
-            { 
-                ScheduleId = 0, 
-                DoctorId = doctorId, 
+            var command = new SaveDoctorScheduleCommand
+            {
+                ScheduleId = 0,
+                DoctorId = doctorId,
                 DayOfWeek = "Monday",
                 StartTime = new TimeSpan(9, 0, 0),
                 EndTime = new TimeSpan(17, 0, 0),
@@ -216,10 +216,10 @@ namespace KooliProjekt.Application.UnitTests.Features.DoctorSchedules
         {
             // Arrange
             var validator = new SaveDoctorScheduleCommandValidator(DbContext);
-            var command = new SaveDoctorScheduleCommand 
-            { 
-                ScheduleId = 0, 
-                DoctorId = 1, 
+            var command = new SaveDoctorScheduleCommand
+            {
+                ScheduleId = 0,
+                DoctorId = 1,
                 DayOfWeek = dayOfWeek,
                 StartTime = new TimeSpan(9, 0, 0),
                 EndTime = new TimeSpan(17, 0, 0),
@@ -239,10 +239,10 @@ namespace KooliProjekt.Application.UnitTests.Features.DoctorSchedules
         {
             // Arrange
             var validator = new SaveDoctorScheduleCommandValidator(DbContext);
-            var command = new SaveDoctorScheduleCommand 
-            { 
-                ScheduleId = 0, 
-                DoctorId = 1, 
+            var command = new SaveDoctorScheduleCommand
+            {
+                ScheduleId = 0,
+                DoctorId = 1,
                 DayOfWeek = "Monday",
                 StartTime = new TimeSpan(17, 0, 0),
                 EndTime = new TimeSpan(9, 0, 0),
@@ -262,10 +262,10 @@ namespace KooliProjekt.Application.UnitTests.Features.DoctorSchedules
         {
             // Arrange
             var validator = new SaveDoctorScheduleCommandValidator(DbContext);
-            var command = new SaveDoctorScheduleCommand 
-            { 
-                ScheduleId = 0, 
-                DoctorId = 1, 
+            var command = new SaveDoctorScheduleCommand
+            {
+                ScheduleId = 0,
+                DoctorId = 1,
                 DayOfWeek = "Monday",
                 StartTime = new TimeSpan(9, 0, 0),
                 EndTime = new TimeSpan(17, 0, 0),

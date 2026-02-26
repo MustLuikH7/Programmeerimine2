@@ -44,8 +44,20 @@ namespace KooliProjekt.Application.Features.Documents
             }
 
             var result = new OperationResult<PagedResult<DocumentDto>>();
-            result.Value = await _dbContext
-                .Documents
+
+            var query = _dbContext.Documents.AsQueryable();
+
+            if (!string.IsNullOrEmpty(request.FileName))
+            {
+                query = query.Where(d => d.FileName.Contains(request.FileName));
+            }
+
+            if (request.DoctorId.HasValue)
+            {
+                query = query.Where(d => d.DoctorId == request.DoctorId.Value);
+            }
+
+            result.Value = await query
                 .OrderBy(d => d.DocumentId)
                 .Select(d => new DocumentDto
                 {

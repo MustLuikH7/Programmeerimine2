@@ -253,10 +253,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Documents
         {
             // Arrange
             var validator = new SaveDocumentCommandValidator(DbContext);
-            var command = new SaveDocumentCommand 
-            { 
-                DocumentId = 0, 
-                AppointmentId = appointmentId, 
+            var command = new SaveDocumentCommand
+            {
+                DocumentId = 0,
+                AppointmentId = appointmentId,
                 DoctorId = 1,
                 FileName = "test.pdf",
                 FilePath = "/documents/test.pdf",
@@ -278,10 +278,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Documents
         {
             // Arrange
             var validator = new SaveDocumentCommandValidator(DbContext);
-            var command = new SaveDocumentCommand 
-            { 
-                DocumentId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveDocumentCommand
+            {
+                DocumentId = 0,
+                AppointmentId = 1,
                 DoctorId = doctorId,
                 FileName = "test.pdf",
                 FilePath = "/documents/test.pdf",
@@ -303,10 +303,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Documents
         {
             // Arrange
             var validator = new SaveDocumentCommandValidator(DbContext);
-            var command = new SaveDocumentCommand 
-            { 
-                DocumentId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveDocumentCommand
+            {
+                DocumentId = 0,
+                AppointmentId = 1,
                 DoctorId = 1,
                 FileName = fileName,
                 FilePath = "/documents/test.pdf",
@@ -328,10 +328,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Documents
         {
             // Arrange
             var validator = new SaveDocumentCommandValidator(DbContext);
-            var command = new SaveDocumentCommand 
-            { 
-                DocumentId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveDocumentCommand
+            {
+                DocumentId = 0,
+                AppointmentId = 1,
                 DoctorId = 1,
                 FileName = "test.pdf",
                 FilePath = filePath,
@@ -351,10 +351,10 @@ namespace KooliProjekt.Application.UnitTests.Features.Documents
         {
             // Arrange
             var validator = new SaveDocumentCommandValidator(DbContext);
-            var command = new SaveDocumentCommand 
-            { 
-                DocumentId = 0, 
-                AppointmentId = 1, 
+            var command = new SaveDocumentCommand
+            {
+                DocumentId = 0,
+                AppointmentId = 1,
                 DoctorId = 1,
                 FileName = "test.pdf",
                 FilePath = "/documents/test.pdf",

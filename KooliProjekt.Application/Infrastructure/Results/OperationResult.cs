@@ -4,10 +4,10 @@ namespace KooliProjekt.Application.Infrastructure.Results
 {
     public class OperationResult
     {
-        public IDictionary<string, string> PropertyErrors { get; private set; }
-        public IList<string> Errors { get; private set; }
+        public IDictionary<string, string> PropertyErrors { get; set; }
+        public IList<string> Errors { get; set; }
 
-        public bool HasErrors 
+        public bool HasErrors
         {
             get
             {

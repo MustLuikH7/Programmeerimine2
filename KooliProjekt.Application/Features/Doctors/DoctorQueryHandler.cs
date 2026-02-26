@@ -45,9 +45,19 @@ namespace KooliProjekt.Application.Features.Doctors
 
             var result = new OperationResult<PagedResult<DoctorDto>>();
 
-            result.Value = await _dbContext
-                .Doctors
-                .AsNoTracking()
+            var query = _dbContext.Doctors.AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrEmpty(request.Name))
+            {
+                query = query.Where(d => d.FirstName.Contains(request.Name) || d.LastName.Contains(request.Name));
+            }
+
+            if (!string.IsNullOrEmpty(request.Specialty))
+            {
+                query = query.Where(d => d.Specialty.Contains(request.Specialty));
+            }
+
+            result.Value = await query
                 .OrderBy(d => d.FirstName)
                 .Select(d => new DoctorDto
                 {

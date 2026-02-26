@@ -44,8 +44,20 @@ namespace KooliProjekt.Application.Features.DoctorSchedules
             }
 
             var result = new OperationResult<PagedResult<DoctorScheduleDto>>();
-            result.Value = await _dbContext
-                .DoctorSchedules
+
+            var query = _dbContext.DoctorSchedules.AsQueryable();
+
+            if (request.DoctorId.HasValue)
+            {
+                query = query.Where(s => s.DoctorId == request.DoctorId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(request.DayOfWeek))
+            {
+                query = query.Where(s => s.DayOfWeek.Contains(request.DayOfWeek));
+            }
+
+            result.Value = await query
                 .OrderBy(s => s.DoctorId)
                 .Select(s => new DoctorScheduleDto
                 {
