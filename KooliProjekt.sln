@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.Application.Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.IntegrationTests", "KooliProjekt.IntegrationTests\KooliProjekt.IntegrationTests.csproj", "{FB3C75F0-2F07-4333-A07A-5FEB280A3DEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.WindowsForms", "KooliProjekt.WindowsForms\KooliProjekt.WindowsForms.csproj", "{44F4A19F-355C-47AF-8F9B-4384663EF9D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{FB3C75F0-2F07-4333-A07A-5FEB280A3DEB}.Release|x64.Build.0 = Release|Any CPU
 		{FB3C75F0-2F07-4333-A07A-5FEB280A3DEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{FB3C75F0-2F07-4333-A07A-5FEB280A3DEB}.Release|x86.Build.0 = Release|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Debug|x64.Build.0 = Debug|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Debug|x86.Build.0 = Debug|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Release|x64.ActiveCfg = Release|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Release|x64.Build.0 = Release|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Release|x86.ActiveCfg = Release|Any CPU
+		{44F4A19F-355C-47AF-8F9B-4384663EF9D2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
