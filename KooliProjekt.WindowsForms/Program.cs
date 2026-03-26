@@ -1,3 +1,5 @@
+using KooliProjekt.WindowsForms.Api;
+
 namespace KooliProjekt.WindowsForms;
 
 static class Program
@@ -11,6 +13,8 @@ static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
-    }    
+
+        var apiClient = new ApiClient();
+        Application.Run(new Form1(apiClient));
+    }
 }
