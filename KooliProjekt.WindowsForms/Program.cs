@@ -1,7 +1,6 @@
+using System;
 using KooliProjekt.WindowsForms.Api;
-
 namespace KooliProjekt.WindowsForms;
-
 static class Program
 {
     /// <summary>
@@ -14,7 +13,7 @@ static class Program
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
 
-        var apiClient = new ApiClient();
+        IApiClient apiClient = new ApiClient();
         Application.Run(new Form1(apiClient));
     }
 }

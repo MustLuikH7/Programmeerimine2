@@ -11,7 +11,6 @@ namespace KooliProjekt.WindowsForms.Api
 
         public ApiClient()
         {
-            // The url port could vary, let's use 5086 as in the example or check WebAPI/Properties/launchSettings.json
             _baseUrl = "http://localhost:5086/api/Users/";
             _client = new HttpClient();
         }
