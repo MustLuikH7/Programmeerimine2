@@ -25,6 +25,7 @@ public partial class Form1: Form
         phoneField = new TextBox();
         saveCommand = new Button();
         addCommand = new Button();
+        deleteCommand = new Button();   
         labelId = new Label();
         labelFirstName = new Label();
         labelLastName = new Label();
@@ -154,11 +155,22 @@ public partial class Form1: Form
         addCommand.Text = "Add New";
         addCommand.UseVisualStyleBackColor = true;
         // 
+        // deleteCommand
+        // 
+        deleteCommand.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        deleteCommand.Location = new Point(490, 480);
+        deleteCommand.Name = "deleteCommand";
+        deleteCommand.Size = new Size(90, 30);
+        deleteCommand.TabIndex = 13;
+        deleteCommand.Text = "Delete";
+        deleteCommand.UseVisualStyleBackColor = true;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(784, 531);
+        Controls.Add(deleteCommand);
         Controls.Add(addCommand);
         Controls.Add(saveCommand);
         Controls.Add(phoneField);
@@ -187,6 +199,7 @@ public partial class Form1: Form
     private TextBox lastNameField;
     private TextBox emailField;
     private TextBox phoneField;
+    private Button deleteCommand;
     private Button saveCommand;
     private Button addCommand;
     private Label labelId;

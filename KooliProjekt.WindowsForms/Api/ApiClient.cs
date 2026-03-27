@@ -1,44 +1,93 @@
-﻿using System.Net.Http;
+﻿using Newtonsoft.Json;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
-
 namespace KooliProjekt.WindowsForms.Api
+
 {
+
     public class ApiClient : IApiClient
+
     {
+
         private readonly string _baseUrl;
+
         private readonly HttpClient _client;
 
         public ApiClient()
+
         {
+
             _baseUrl = "http://localhost:5086/api/Users/";
+
             _client = new HttpClient();
+
         }
 
-        public async Task<OperationResult<PagedResult<UserDto>>> List(int page, int pageSize)
+        public async Task<OperationResult<PagedResult<Users>>> List(int page, int pageSize)
+
         {
-            var url = _baseUrl + "?page=" + page + "&pageSize=" + pageSize;
-            return await _client.GetFromJsonAsync<OperationResult<PagedResult<UserDto>>>(url);
+
+            var url = _baseUrl + "List?page=" + page + "&pageSize=" + pageSize;
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            using var response = await _client.SendAsync(request);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<OperationResult<PagedResult<Users>>>(body);
+
+            return result;
+
         }
 
-        public async Task<OperationResult> Save(SaveUserCommand command)
+        public async Task<OperationResult> Save(Users list)
+
         {
+
             var url = _baseUrl + "Save";
-            var response = await _client.PostAsJsonAsync(url, command);
-            return await response.Content.ReadFromJsonAsync<OperationResult>();
-        }
 
-        public async Task<OperationResult> Delete(int userId)
-        {
-            var url = _baseUrl + "Delete";
-            var command = new DeleteUserCommand { UserId = userId };
+            using var request = new HttpRequestMessage(HttpMethod.Post, url)
 
-            var request = new HttpRequestMessage(HttpMethod.Delete, url)
             {
-                Content = JsonContent.Create(command)
+
+                Content = JsonContent.Create(list)
+
             };
-            var response = await _client.SendAsync(request);
-            return await response.Content.ReadFromJsonAsync<OperationResult>();
+
+            using var response = await _client.SendAsync(request);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<OperationResult>(body);
+
+            return result;
+
         }
+
+        public async Task<OperationResult> Delete(int id)
+
+        {
+
+            var url = _baseUrl + "Delete";
+
+            using var request = new HttpRequestMessage(HttpMethod.Delete, url)
+
+            {
+
+                Content = JsonContent.Create(new { id = id })
+
+            };
+
+            using var response = await _client.SendAsync(request);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<OperationResult>(body);
+
+            return result;
+
+        }
+
     }
+
 }

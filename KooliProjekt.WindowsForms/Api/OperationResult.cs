@@ -6,8 +6,8 @@ namespace KooliProjekt.WindowsForms
     [ExcludeFromCodeCoverage]
     public class OperationResult
     {
-        public IDictionary<string, string> PropertyErrors { get; private set; }
-        public IList<string> Errors { get; private set; }
+        public Dictionary<string, string> PropertyErrors { get; set; }
+        public List<string> Errors { get; set; }
 
         public bool HasErrors 
         {

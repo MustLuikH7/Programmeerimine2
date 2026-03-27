@@ -6,7 +6,7 @@ namespace KooliProjekt.WindowsForms
     [ExcludeFromCodeCoverage]
     public class PagedResult<T> : PagedResultBase
     {
-        public IList<T> Results { get; set; }
+        public List<T> Results { get; set; }
 
         public PagedResult()
         {

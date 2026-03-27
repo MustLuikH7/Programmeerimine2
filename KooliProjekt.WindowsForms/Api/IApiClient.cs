@@ -1,12 +1,13 @@
-using System.Threading.Tasks;
-using KooliProjekt.WindowsForms;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace KooliProjekt.WindowsForms.Api
 {
     public interface IApiClient
     {
-        Task<OperationResult<PagedResult<UserDto>>> List(int page, int pageSize);
-        Task<OperationResult> Save(SaveUserCommand command);
-        Task<OperationResult> Delete(int userId);
+        Task<OperationResult<PagedResult<Users>>> List(int page, int pageSize);
+        Task<OperationResult> Save(Users list);
+        Task<OperationResult> Delete(int id);
     }
 }
