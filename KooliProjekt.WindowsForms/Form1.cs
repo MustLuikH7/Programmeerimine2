@@ -56,7 +56,7 @@ namespace KooliProjekt.WindowsForms
 
         {
 
-            get { return int.Parse(idField.Text); }
+            get { return int.TryParse(idField.Text, out int id) ? id : 0; }
 
             set { idField.Text = value.ToString(); }
 
@@ -132,6 +132,13 @@ namespace KooliProjekt.WindowsForms
         private async void DeleteCommand_Click(object sender, EventArgs e)
 
         {
+            if (!int.TryParse(idField.Text, out int id) || id == 0)
+
+            {
+
+                return;
+
+            }
 
             var message = "Oled kindel, et soovid kustutada " + firstNameField.Text + "?";
 
@@ -144,8 +151,6 @@ namespace KooliProjekt.WindowsForms
                 return;
 
             }
-
-            var id = int.Parse(idField.Text);
 
             var result = await _apiClient.Delete(id);
 
@@ -175,7 +180,6 @@ namespace KooliProjekt.WindowsForms
 
             phoneField.Text = "";
 
-            FullName = "";
 
         }
 
@@ -185,7 +189,7 @@ namespace KooliProjekt.WindowsForms
 
             var user = new Users();
 
-            user.UserId = int.Parse(idField.Text);
+            user.UserId = int.TryParse(idField.Text, out int id) ? id : 0;
 
             user.FirstName = firstNameField.Text;
             user.LastName = lastNameField.Text;

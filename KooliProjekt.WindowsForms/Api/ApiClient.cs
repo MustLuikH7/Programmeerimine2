@@ -74,7 +74,7 @@ namespace KooliProjekt.WindowsForms.Api
 
             {
 
-                Content = JsonContent.Create(new { id = id })
+                Content = JsonContent.Create(new { UserId = id })
 
             };
 
