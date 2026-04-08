@@ -88,9 +88,39 @@ namespace KooliProjekt.WindowsForms
 
 
             }
-
         }
+        public async Task Save()
+        {
+            var user = new Users();
+            user.UserId = _mainView.CurrentId;
+            user.FirstName = _mainView.FirstName;
+            user.LastName = _mainView.LastName;
+            user.Email = _mainView.Email;
+            user.Phone = _mainView.Phone;
 
+            var result = await _apiClient.Save(user);
+            if (result.HasErrors)
+            {
+                _mainView.ShowError("Viga salvestamisel", result);
+                return;
+            }
+            await LoadData();
+        }
+        public async Task Delete()
+        {
+            if (!_mainView.ConfirmDelete())
+            {
+                return;
+            }
+
+            var result = await _apiClient.Delete(_mainView.CurrentId);
+            if (result.HasErrors)
+            {
+                _mainView.ShowError("Viga kustutamisel", result);
+                return;
+            }
+
+            await LoadData();
+        }
     }
-
 }

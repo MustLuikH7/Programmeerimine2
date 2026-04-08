@@ -21,7 +21,7 @@ namespace KooliProjekt.IntegrationTests
         public async Task List_should_return_paged_result()
         {
             // Arrange
-            var url = "/api/Users/?page=1&pageSize=5";
+            var url = "/api/Users/List?page=1&pageSize=5";
 
             // Act
             var response = await Client.GetFromJsonAsync<OperationResult<PagedResult<UserDto>>>(url);

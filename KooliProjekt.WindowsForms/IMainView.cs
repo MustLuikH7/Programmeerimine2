@@ -15,6 +15,7 @@ namespace KooliProjekt.WindowsForms
         string LastName { get; set; }
         string Email { get; set; }
         string Phone { get; set; }
+        bool ConfirmDelete();
 
     }
 }

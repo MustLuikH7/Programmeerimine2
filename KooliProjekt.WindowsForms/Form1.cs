@@ -13,7 +13,7 @@ namespace KooliProjekt.WindowsForms
         private readonly IApiClient _apiClient;
 
         private MainViewPresenter _mainViewPresenter;
- 
+
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 
@@ -98,7 +98,7 @@ namespace KooliProjekt.WindowsForms
         {
             get { return phoneField.Text; }
             set { phoneField.Text = value; }
-        }   
+        }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FullName { get; set; }
@@ -212,7 +212,7 @@ namespace KooliProjekt.WindowsForms
 
         // Koosta etteantud veateatest ja OperationResult sees olevatest vigadest
 
-        // veateade ja näita seda kasutajale
+        // veateade ja nï¿½ita seda kasutajale
 
         public void ShowError(string message, OperationResult result)
 
@@ -302,6 +302,12 @@ namespace KooliProjekt.WindowsForms
 
         }
 
+        public bool ConfirmDelete()
+        {
+            var message = "Oled kindel, et soovid kustutada " + FirstName + "?";
+            var answer = MessageBox.Show(message, "Kustutamine", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return (answer == DialogResult.Yes);
+        }
     }
 
 }
