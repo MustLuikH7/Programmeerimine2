@@ -12,9 +12,9 @@ namespace KooliProjekt.WpfApplication
             {
                 var items = new List<Users>
                 {
-                    new Users { Id = 1, FirstName = "Test 1" },
-                    new Users { Id = 2, FirstName = "Test 2" },
-                    new Users{ Id = 3, FirstName = "Test 3" }
+                    new Users { UserId = 1, FirstName = "Test 1" },
+                    new Users { UserId = 2, FirstName = "Test 2" },
+                    new Users { UserId = 3, FirstName = "Test 3" }
                 };
 
                 return items;
