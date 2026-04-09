@@ -22,7 +22,7 @@ namespace KooliProjekt.WindowsForms.UnitTests
         {
             // Arrange
             var faultyResponse = new OperationResult<PagedResult<Users>>();
-            faultyResponse.Errors.Add("An error occurred while fetching data.");
+            faultyResponse.AddError("An error occurred while fetching data.");
 
             _apiClientMock
                 .Setup(client => client.List(It.IsAny<int>(), It.IsAny<int>()))
@@ -127,7 +127,7 @@ namespace KooliProjekt.WindowsForms.UnitTests
         {
             // Arrange
             var faultyResponse = new OperationResult();
-            faultyResponse.Errors.Add("An error occurred while saving data.");
+            faultyResponse.AddError("An error occurred while saving data.");
 
             _apiClientMock
                 .Setup(client => client.Save(It.IsAny<Users>()))
@@ -206,7 +206,7 @@ namespace KooliProjekt.WindowsForms.UnitTests
             _mainViewMock.SetupGet(view => view.CurrentId).Returns(1).Verifiable();
 
             var faultyResponse = new OperationResult();
-            faultyResponse.Errors.Add("Viga kustutamisel");
+            faultyResponse.AddError("Viga kustutamisel");
 
             _apiClientMock
                 .Setup(client => client.Delete(1))
