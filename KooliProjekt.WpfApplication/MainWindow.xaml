@@ -12,17 +12,25 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <DataGrid x:Name="ToDoListsDataGrid" 
+        <DataGrid x:Name="UsersDataGrid" 
                   Grid.Column="0"
                   AutoGenerateColumns="True"
+                  CanUserAddRows="False"
                   ItemsSource="{Binding Data}"
                   SelectedItem="{Binding SelectedItem}"/>
 
         <StackPanel Grid.Column="1" Margin="10">
             <TextBlock>ID</TextBlock>
-            <TextBlock Text="{Binding SelectedItem.Id}"></TextBlock>
-            <TextBlock>Title</TextBlock>
-            <TextBox Text="{Binding SelectedItem.Title}"></TextBox>
+            <TextBlock Text="{Binding SelectedItem.UserId}"></TextBlock>
+            <TextBlock>FirstName</TextBlock>
+            <TextBox Text="{Binding SelectedItem.FirstName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock>LastName</TextBlock>
+            <TextBox Text="{Binding SelectedItem.LastName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock>Email</TextBlock>
+            <TextBox Text="{Binding SelectedItem.Email, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock>Phone</TextBlock>
+            <TextBox Text="{Binding SelectedItem.Phone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
 
             <StackPanel 
                         Orientation="Horizontal"
