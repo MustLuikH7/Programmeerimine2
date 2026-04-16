@@ -36,9 +36,9 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Margin="10">
-                <Button Margin="5" Padding="5">New</Button>
-                <Button Margin="5" Padding="5">Save</Button>
-                <Button Margin="5" Padding="5">Delete</Button>
+                <Button Margin="5" Padding="5" Command="{Binding AddNewCommand}">New</Button>
+                <Button Margin="5" Padding="5" Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedItem}">Save</Button>
+                <Button Margin="5" Padding="5" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItem}">Delete</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

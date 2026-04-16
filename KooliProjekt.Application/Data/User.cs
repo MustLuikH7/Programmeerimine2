@@ -12,20 +12,16 @@ namespace KooliProjekt.Application.Data
         [Key]
         public int UserId { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
 
-        [Required]
         [MaxLength(256)]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
         [MaxLength(256)]
         public string PasswordHash { get; set; }
 
