@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.Application", "KooliProjekt.Application\KooliProjekt.Application.csproj", "{AE74289E-DE79-F788-C2DC-BADD9C633513}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.WindowsForms.UnitTests", "KooliProjekt.WindowsForms.UnitTests\KooliProjekt.WindowsForms.UnitTests.csproj", "{4E814A8D-73DD-4B78-BC82-AC82442C82A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.WpfApplication", "KooliProjekt.WpfApplication\KooliProjekt.WpfApplication.csproj", "{A84BC8D7-3A66-4E2E-8963-B813E34C55B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.WpfApplication.UnitTests", "KooliProjekt.WpfApplication.UnitTests\KooliProjekt.WpfApplication.UnitTests.csproj", "{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,18 @@ Global
 		{A84BC8D7-3A66-4E2E-8963-B813E34C55B5}.Release|x64.Build.0 = Release|Any CPU
 		{A84BC8D7-3A66-4E2E-8963-B813E34C55B5}.Release|x86.ActiveCfg = Release|Any CPU
 		{A84BC8D7-3A66-4E2E-8963-B813E34C55B5}.Release|x86.Build.0 = Release|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Debug|x64.Build.0 = Debug|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Debug|x86.Build.0 = Debug|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Release|x64.ActiveCfg = Release|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Release|x64.Build.0 = Release|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Release|x86.ActiveCfg = Release|Any CPU
+		{C6D20BD6-1D76-F096-FFDA-F69EA4C3F081}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
