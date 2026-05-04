@@ -1,0 +1,61 @@
+@page "/users"
+@inject IApiClient apiClient
+
+<PageTitle>Kasutajad</PageTitle>
+
+<h1>Kasutajad</h1>
+
+@if (users == null)
+{
+    <p><em>Laeb...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Eesnimi</th>
+                <th>Perenimi</th>
+                <th>E-post</th>
+                <th>Telefon</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Phone</td>
+                    <td>
+                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-success">Edit</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IList<KooliProjekt.BlazorWasm.Users> users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        var result = await apiClient.List(1, 100);
+        users = result.Value.Results;
+    }
+
+    private async Task DeleteUser(int id)
+    {
+        await apiClient.Delete(id);
+        await LoadData();
+    }
+}
