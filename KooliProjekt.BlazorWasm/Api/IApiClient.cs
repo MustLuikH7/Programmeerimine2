@@ -7,6 +7,7 @@ namespace KooliProjekt.BlazorWasm
     public interface IApiClient
     {
         Task<OperationResult<PagedResult<Users>>> List(int page, int pageSize);
+        Task<OperationResult<Users>> Get(int id);
         Task<OperationResult> Save(Users list);
         Task<OperationResult> Delete(int id);
     }

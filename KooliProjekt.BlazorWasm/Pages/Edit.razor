@@ -1,0 +1,83 @@
+@page "/create"
+@page "/edit/{UserId:int}"
+
+@inject KooliProjekt.BlazorWasm.IApiClient apiClient
+@inject NavigationManager NavManager
+
+<h3>@title</h3>
+
+<EditForm EditContext="editContext" OnValidSubmit="@FormSubmitted">
+    <p class="alert-danger">@error</p>
+    <div class="form-group row">
+        <label class="col-ms-2 col-form-label">Eesnimi</label>
+        <div class="col-sm-10">
+            <InputText class="form-control" @bind-Value="user.FirstName" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-ms-2 col-form-label">Perenimi</label>
+        <div class="col-sm-10">
+            <InputText class="form-control" @bind-Value="user.LastName" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-ms-2 col-form-label">E-post</label>
+        <div class="col-sm-10">
+            <InputText class="form-control" @bind-Value="user.Email" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-ms-2 col-form-label">Telefon</label>
+        <div class="col-sm-10">
+            <InputText class="form-control" @bind-Value="user.Phone" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-ms-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int UserId { get; set; }
+
+    private string error = "";
+    private string title = "Edit";
+    private EditContext? editContext;
+    private KooliProjekt.BlazorWasm.Users user = new KooliProjekt.BlazorWasm.Users();
+
+    protected override async Task OnInitializedAsync()
+    {
+        editContext = new EditContext(user);
+
+        if (UserId == 0)
+        {
+            title = "Add";
+            return;
+        }
+
+        var response = await apiClient.Get(UserId);
+        if (!response.HasErrors)
+        {
+            user = response.Value;
+            editContext = new EditContext(user);
+        }
+    }
+
+    private async Task FormSubmitted()
+    {
+        error = "";
+        var result = await apiClient.Save(user);
+        if (!result.HasErrors)
+        {
+            NavManager.NavigateTo("/users");
+            return;
+        }
+
+        error = "Viga andmete salvestamisel!";
+    }
+}

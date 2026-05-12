@@ -5,6 +5,10 @@
 
 <h1>Kasutajad</h1>
 
+<p>
+    <a href="/create" class="btn btn-primary">Add new</a>
+</p>
+
 @if (users == null)
 {
     <p><em>Laeb...</em></p>
@@ -30,8 +34,8 @@ else
                     <td>@user.Email</td>
                     <td>@user.Phone</td>
                     <td>
-                        <button class="btn btn-danger">Delete</button>
-                        <button class="btn btn-success">Edit</button>
+                        <a class="btn btn-success" href="/edit/@user.UserId">Edit</a>
+                        <button class="btn btn-danger" @onclick="() => DeleteUser(user.UserId)">Delete</button>
                     </td>
                 </tr>
             }
